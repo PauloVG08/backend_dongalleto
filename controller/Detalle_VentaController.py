@@ -12,17 +12,19 @@ def generar_venta(detallevp):
             # Insertar en la tabla venta
             query1 = "INSERT INTO venta (fecha, total) VALUES (%s, %s)"
             cursor.execute(query1, (detallevp.venta.fecha, detallevp.venta.total))
-            
+
+
             # Obtener el último ID insertado
             cursor.execute("SELECT LAST_INSERT_ID()")
             id_venta = cursor.fetchone()[0]
-            detallevp.venta.id_venta = id_venta
-            
+            detallevp.venta.idVenta = id_venta
+
             # Insertar en Detalle_Venta
             for item in detallevp.lista_galleta:
                 query3 = "INSERT INTO Detalle_Venta (idVenta, idGalleta, cantidad, subtotal) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query3, (detallevp.venta.id_venta, item.galleta.id_galleta, item.galleta.cantidad, item.subtotal))
-            
+                print(query3)
+                cursor.execute(query3, (detallevp.venta.idVenta, item.idGalleta, item.cantidad, item.subtotal))
+
             conexion.commit()
             r = True
     except Error as e:

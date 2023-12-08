@@ -25,7 +25,7 @@ def apigetAllInventarios():
     except:
         print("ocurrió un error")
 
-app.post("/galleta/insertar")
+app.post("/inventario/insertar")
 def apiinsertarInventario(inv: Inventario):
     try:
         response = insertarInventario(inv)
@@ -33,7 +33,7 @@ def apiinsertarInventario(inv: Inventario):
     except:
         print("ocurrió un error")
 
-app.post("/galleta/actualizar")
+app.post("/inventario/actualizar")
 def apiActualizarInventario(inv: Inventario):
     try:
         response = actualizarInventario(inv)
@@ -41,7 +41,7 @@ def apiActualizarInventario(inv: Inventario):
     except:
         print("ocurrió un error")
 
-app.post("/galleta/eliminar")
+app.post("/inventario/eliminar")
 def apiEliminarInventario(id: int):
     try:
         response = eliminarInventario(id)

@@ -1,8 +1,10 @@
 from fastapi.middleware.cors import CORSMiddleware
-from api.GalletaService import app
 from model.Detalle_Venta import DetalleVenta
 from model.Venta import Venta
 from controller.Detalle_VentaController import generar_venta
+from fastapi import FastAPI
+from datetime import datetime
+app = FastAPI()
 
 origins = [
     "http://localhost",
@@ -18,10 +20,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.post("/detalle_venta/insertar")
+@app.post("/detalle_venta/insertar", tags=["VentaService"])
 def apiInsertarVenta(dv: DetalleVenta):
     try:
+        # Asignar la fecha actual en el formato correcto
+        dv.venta.fecha = datetime.now().strftime('%Y-%m-%d')
         response = generar_venta(dv)
         return response
-    except:
-        print("ocurrió un error")
+    except Exception as e:  # Es una buena práctica capturar la excepción como 'e'
+        print("Ocurrió un error:", e)
+
+@app.post("/detalle_venta/insertar", tags=["VentaService"])
+def apiInsertarVenta(dv: DetalleVenta):
+    try:
+        # Asignar la fecha actual en el formato correcto
+        dv.venta.fecha = datetime.now().strftime('%Y-%m-%d')
+        response = generar_venta(dv)
+        return response
+    except Exception as e:  # Es una buena práctica capturar la excepción como 'e'
+        print("Ocurrió un error:", e)

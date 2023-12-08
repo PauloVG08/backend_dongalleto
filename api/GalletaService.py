@@ -1,9 +1,8 @@
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from api.VentaService import app
 from controller.GalletaController import getAllGalletas, insertarGalleta, eliminarGalleta, actualizarGalleta
 from model.Galleta import Galleta
 
-app = FastAPI()
 
 origins = [
     "http://localhost",
@@ -27,25 +26,27 @@ def apigetAllCookies():
     except:
         print("ocurrió un error")
 
-app.post("/galleta/insertar")
-def insertarGalleta(galleta: Galleta):
+@app.post("/galleta/insertar")
+def apiinsertarGalleta(galleta: Galleta):
     try:
         response = insertarGalleta(galleta)
         return response
     except:
         print("ocurrió un error")
 
-app.post("/galleta/actualizar")
+@app.post("/galleta/actualizar")
 def apiActualizarGalleta(galleta: Galleta):
     try:
+        print(galleta)
         response = actualizarGalleta(galleta)
         return response
     except:
         print("ocurrió un error")
 
-app.post("/galleta/eliminar")
+@app.post("/galleta/eliminar/{id}")
 def apiEliminarGalleta(id: int):
     try:
+        print(id)
         response = eliminarGalleta(id)
         return response
     except:
