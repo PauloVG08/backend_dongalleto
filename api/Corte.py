@@ -29,3 +29,4 @@ def apiInsertarVenta(fecha: str):
         return response
     except Exception as e:  # Es una buena práctica capturar la excepción como 'e'
         print("Ocurrió un error:", e)
+        print("ejemplo de nueva rama")
